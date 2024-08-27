@@ -81,7 +81,7 @@ const InterestsForm = ({ education, updateForm }: StepProps) => {
   }
 
   return (
-    <FormWrapper title="Education">
+    <FormWrapper title="Professional interests">
       <Form {...form}>
         <form
           onSubmit={form.handleSubmit(onSubmit)}
@@ -94,7 +94,7 @@ const InterestsForm = ({ education, updateForm }: StepProps) => {
               <FormItem>
                 <FormLabel>Industry preference</FormLabel>
                 <FormControl>
-                  <Input placeholder="Ola Nordmann" {...field} />
+                  <Input placeholder="Select your industries" {...field} />
                 </FormControl>
               </FormItem>
             )}
@@ -106,7 +106,7 @@ const InterestsForm = ({ education, updateForm }: StepProps) => {
               <FormItem>
                 <FormLabel>Role preference</FormLabel>
                 <FormControl>
-                  <Input placeholder="Ola.nordmann@gmail.com" {...field} />
+                  <Input placeholder="Select your roles" {...field} />
                 </FormControl>
               </FormItem>
             )}
@@ -118,7 +118,7 @@ const InterestsForm = ({ education, updateForm }: StepProps) => {
               <FormItem>
                 <div className="mb-4">
                   <FormLabel className="text-base">
-                    Location preference
+                    Location preferences
                   </FormLabel>
                 </div>
                 {items.map((item) => (

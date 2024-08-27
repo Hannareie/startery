@@ -20,7 +20,7 @@ const initialValues: FormItems = {
   personal: {
     name: "",
     email: "",
-    phone: 1,
+    phone: 0,
     location: "",
   },
 };
@@ -71,7 +71,7 @@ const UserInfoForm = ({ personal, updateForm }: StepProps) => {
               <FormItem>
                 <FormLabel>First and last name</FormLabel>
                 <FormControl>
-                  <Input placeholder="Ola Nordmann" {...field} />
+                  <Input placeholder="Enter your name" {...field} />
                 </FormControl>
               </FormItem>
             )}
@@ -83,7 +83,7 @@ const UserInfoForm = ({ personal, updateForm }: StepProps) => {
               <FormItem>
                 <FormLabel>Email</FormLabel>
                 <FormControl>
-                  <Input placeholder="Ola.nordmann@gmail.com" {...field} />
+                  <Input placeholder="Enter your email" {...field} />
                 </FormControl>
               </FormItem>
             )}
@@ -95,7 +95,7 @@ const UserInfoForm = ({ personal, updateForm }: StepProps) => {
               <FormItem>
                 <FormLabel>Phone Number (optional) </FormLabel>
                 <FormControl>
-                  <Input placeholder="Phone number" {...field} />
+                  <Input placeholder="Enter your phone number" {...field} />
                 </FormControl>
               </FormItem>
             )}
@@ -107,7 +107,7 @@ const UserInfoForm = ({ personal, updateForm }: StepProps) => {
               <FormItem>
                 <FormLabel>Location</FormLabel>
                 <FormControl>
-                  <Input placeholder="Stavanger" {...field} />
+                  <Input placeholder="Enter your location" {...field} />
                 </FormControl>
               </FormItem>
             )}

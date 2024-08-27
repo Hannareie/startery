@@ -100,7 +100,7 @@ const EducationForm = ({ education, updateForm }: StepProps) => {
               <FormItem>
                 <FormLabel>Univetsity</FormLabel>
                 <FormControl>
-                  <Input placeholder="University" {...field} />
+                  <Input placeholder="Enter your university" {...field} />
                 </FormControl>
               </FormItem>
             )}
@@ -170,7 +170,7 @@ const EducationForm = ({ education, updateForm }: StepProps) => {
               <FormItem>
                 <FormLabel>Degree</FormLabel>
                 <FormControl>
-                  <Input placeholder="Degree" {...field} />
+                  <Input placeholder="Select your degree" {...field} />
                 </FormControl>
               </FormItem>
             )}
@@ -188,7 +188,7 @@ const EducationForm = ({ education, updateForm }: StepProps) => {
                     </FormLabel>
                     <div className="flex gap-4 pb-3">
                       <FormControl>
-                        <Input {...field} />
+                        <Input placeholder="Enter your major" {...field} />
                       </FormControl>
                       <Button
                         type="button"

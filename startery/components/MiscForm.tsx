@@ -12,6 +12,7 @@ import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Button } from "./ui/button";
 import { Input } from "./ui/input";
+import { Textarea } from "./ui/textarea";
 
 type StepProps = FormItems & {
   updateForm: (fieldToUpdate: Partial<FormItems>) => void;
@@ -28,21 +29,11 @@ const initialValues: FormItems = {
 };
 
 const formSchema = z.object({
-  skills: z.string().min(2, {
-    message: "University must be at least 2 characters.",
-  }),
-  tools: z.string().min(2, {
-    message: "Degree must be at least 2 characters.",
-  }),
-  linkedIn: z.string().min(2, {
-    message: "acheivement must be at least 2 characters.",
-  }),
-  portfolio: z.string().min(2, {
-    message: "acheivement must be at least 2 characters.",
-  }),
-  biography: z.string().min(2, {
-    message: "acheivement must be at least 2 characters.",
-  }),
+  skills: z.string(),
+  tools: z.string(),
+  linkedIn: z.string().url().optional(),
+  portfolio: z.string().url(),
+  biography: z.string(),
 });
 
 const MiscForm = ({ misc, updateForm }: StepProps) => {
@@ -71,7 +62,7 @@ const MiscForm = ({ misc, updateForm }: StepProps) => {
   }
 
   return (
-    <FormWrapper title="Education">
+    <FormWrapper title="Miscellaneous">
       <Form {...form}>
         <form
           onSubmit={form.handleSubmit(onSubmit)}
@@ -84,7 +75,7 @@ const MiscForm = ({ misc, updateForm }: StepProps) => {
               <FormItem>
                 <FormLabel>Skills</FormLabel>
                 <FormControl>
-                  <Input placeholder="Ola Nordmann" {...field} />
+                  <Input placeholder="Select your skills" {...field} />
                 </FormControl>
               </FormItem>
             )}
@@ -96,7 +87,7 @@ const MiscForm = ({ misc, updateForm }: StepProps) => {
               <FormItem>
                 <FormLabel>Tools</FormLabel>
                 <FormControl>
-                  <Input placeholder="Tools" {...field} />
+                  <Input placeholder="Select your tools" {...field} />
                 </FormControl>
               </FormItem>
             )}
@@ -106,9 +97,9 @@ const MiscForm = ({ misc, updateForm }: StepProps) => {
             name="linkedIn"
             render={({ field }) => (
               <FormItem>
-                <FormLabel>LinkedIn</FormLabel>
+                <FormLabel>LinkedIn (optional)</FormLabel>
                 <FormControl>
-                  <Input placeholder="LinkedIn" {...field} />
+                  <Input placeholder="Enter link" {...field} />
                 </FormControl>
               </FormItem>
             )}
@@ -120,7 +111,7 @@ const MiscForm = ({ misc, updateForm }: StepProps) => {
               <FormItem>
                 <FormLabel>Portfolio</FormLabel>
                 <FormControl>
-                  <Input placeholder="portfolio" {...field} />
+                  <Input placeholder="Enter link" {...field} />
                 </FormControl>
               </FormItem>
             )}
@@ -132,7 +123,11 @@ const MiscForm = ({ misc, updateForm }: StepProps) => {
               <FormItem>
                 <FormLabel>Biography</FormLabel>
                 <FormControl>
-                  <Input placeholder="biography" {...field} />
+                  <Textarea
+                    placeholder="Enter here"
+                    className="resize-none"
+                    {...field}
+                  />
                 </FormControl>
               </FormItem>
             )}

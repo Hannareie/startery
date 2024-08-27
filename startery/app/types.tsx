@@ -26,8 +26,8 @@ export interface experienceInfo {
   title: string;
   company: string;
   type: string;
-  month: string;
-  year: number;
+  startdate: Date;
+  enddate: Date;
   acheivements: string;
 }
 
@@ -41,7 +41,7 @@ interface personalInterests {
 interface miscInfo {
   skills: string;
   tools: string;
-  linkedIn: string;
+  linkedIn: string | undefined;
   portfolio: string;
   biography: string;
 }

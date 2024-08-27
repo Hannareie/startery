@@ -7,18 +7,17 @@ import {
   FormItem,
   FormLabel,
 } from "@/components/ui/form";
+import { format } from "date-fns";
 import { z } from "zod";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Input } from "./ui/input";
-import {
-  Select,
-  SelectContent,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
-} from "./ui/select";
+import { CalendarIcon } from "@heroicons/react/24/outline";
 import { Textarea } from "./ui/textarea";
+import { Popover, PopoverContent, PopoverTrigger } from "./ui/popover";
+import { Button } from "./ui/button";
+import { Calendar } from "./ui/calendar";
+import { cn } from "@/lib/utils";
 
 type StepProps = FormItems & {
   updateForm: (fieldToUpdate: Partial<FormItems>) => void;
@@ -29,8 +28,8 @@ const initialValues: FormItems = {
     title: "",
     company: "",
     type: "",
-    month: "",
-    year: 0,
+    startdate: new Date(),
+    enddate: new Date(),
     acheivements: "",
   },
 };
@@ -45,11 +44,9 @@ const formSchema = z.object({
   type: z.string().min(2, {
     message: "Type must be at least 2 characters.",
   }),
-  month: z.string(),
-  year: z.number(),
-  acheivements: z.string().min(2, {
-    message: "Acheivement must be at least 2 characters.",
-  }),
+  startdate: z.date(),
+  enddate: z.date(),
+  acheivements: z.string(),
 });
 
 const ExperienceForm = ({ education, updateForm }: StepProps) => {
@@ -59,8 +56,8 @@ const ExperienceForm = ({ education, updateForm }: StepProps) => {
       title: initialValues.experience?.title,
       company: initialValues.experience?.company,
       type: initialValues.experience?.type,
-      month: initialValues.experience?.month,
-      year: initialValues.experience?.year,
+      startdate: initialValues.experience?.startdate,
+      enddate: initialValues.experience?.enddate,
       acheivements: initialValues.experience?.acheivements,
     },
   });
@@ -71,8 +68,8 @@ const ExperienceForm = ({ education, updateForm }: StepProps) => {
         title: values.title,
         company: values.company,
         type: values.type,
-        month: values.month,
-        year: values.year,
+        startdate: values.startdate,
+        enddate: values.enddate,
         acheivements: values.acheivements,
       },
     };
@@ -80,7 +77,7 @@ const ExperienceForm = ({ education, updateForm }: StepProps) => {
   }
 
   return (
-    <FormWrapper title="Education">
+    <FormWrapper title="Experience">
       <Form {...form}>
         <form
           onSubmit={form.handleSubmit(onSubmit)}
@@ -93,7 +90,7 @@ const ExperienceForm = ({ education, updateForm }: StepProps) => {
               <FormItem>
                 <FormLabel>Title</FormLabel>
                 <FormControl>
-                  <Input placeholder="Ola Nordmann" {...field} />
+                  <Input placeholder="Enter title" {...field} />
                 </FormControl>
               </FormItem>
             )}
@@ -103,9 +100,9 @@ const ExperienceForm = ({ education, updateForm }: StepProps) => {
             name="company"
             render={({ field }) => (
               <FormItem>
-                <FormLabel>Degree</FormLabel>
+                <FormLabel>Company name</FormLabel>
                 <FormControl>
-                  <Input placeholder="Ola.nordmann@gmail.com" {...field} />
+                  <Input placeholder="Enter company name" {...field} />
                 </FormControl>
               </FormItem>
             )}
@@ -115,9 +112,9 @@ const ExperienceForm = ({ education, updateForm }: StepProps) => {
             name="type"
             render={({ field }) => (
               <FormItem>
-                <FormLabel>Type</FormLabel>
+                <FormLabel>Experience type</FormLabel>
                 <FormControl>
-                  <Input placeholder="Type" {...field} />
+                  <Input placeholder="Select your type" {...field} />
                 </FormControl>
               </FormItem>
             )}
@@ -125,57 +122,82 @@ const ExperienceForm = ({ education, updateForm }: StepProps) => {
           <div className="flex gap-4">
             <FormField
               control={form.control}
-              name="month"
+              name="startdate"
               render={({ field }) => (
-                <FormItem>
-                  <FormLabel>Month</FormLabel>
-                  <FormControl>
-                    <Select>
-                      <SelectTrigger className="w-[100px]" id="month">
-                        <SelectValue placeholder="Month" />
-                      </SelectTrigger>
-                      <SelectContent>
-                        <SelectItem value="1">January</SelectItem>
-                        <SelectItem value="2">February</SelectItem>
-                        <SelectItem value="3">March</SelectItem>
-                        <SelectItem value="4">April</SelectItem>
-                        <SelectItem value="5">May</SelectItem>
-                        <SelectItem value="6">June</SelectItem>
-                        <SelectItem value="7">July</SelectItem>
-                        <SelectItem value="8">August</SelectItem>
-                        <SelectItem value="9">September</SelectItem>
-                        <SelectItem value="10">October</SelectItem>
-                        <SelectItem value="11">November</SelectItem>
-                        <SelectItem value="12">December</SelectItem>
-                      </SelectContent>
-                    </Select>
-                  </FormControl>
+                <FormItem className="flex flex-col">
+                  <FormLabel>Start date</FormLabel>
+                  <Popover>
+                    <PopoverTrigger asChild>
+                      <FormControl>
+                        <Button
+                          variant={"outline"}
+                          className={cn(
+                            "w-[240px] pl-3 text-left font-normal",
+                            !field.value && "text-muted-foreground"
+                          )}
+                        >
+                          {field.value ? (
+                            format(field.value, "PPP")
+                          ) : (
+                            <span>Pick a date</span>
+                          )}
+                          <CalendarIcon className="ml-auto h-4 w-4 opacity-50" />
+                        </Button>
+                      </FormControl>
+                    </PopoverTrigger>
+                    <PopoverContent className="w-auto p-0" align="start">
+                      <Calendar
+                        mode="single"
+                        //selected={field.value}
+                        onSelect={field.onChange}
+                        disabled={(date) =>
+                          date > new Date() || date < new Date("1900-01-01")
+                        }
+                        initialFocus
+                      />
+                    </PopoverContent>
+                  </Popover>
                 </FormItem>
               )}
             />
+
             <FormField
               control={form.control}
-              name="year"
+              name="startdate"
               render={({ field }) => (
-                <FormItem>
-                  <FormLabel>Year</FormLabel>
-                  <FormControl>
-                    <Select>
-                      <SelectTrigger className="w-[100px]" id="year">
-                        <SelectValue placeholder="Year " />
-                      </SelectTrigger>
-                      <SelectContent>
-                        {Array.from({ length: 10 }, (_, i) => (
-                          <SelectItem
-                            key={i}
-                            value={`${new Date().getFullYear() + i}`}
-                          >
-                            {new Date().getFullYear() + i}
-                          </SelectItem>
-                        ))}
-                      </SelectContent>
-                    </Select>
-                  </FormControl>
+                <FormItem className="flex flex-col">
+                  <FormLabel>End date</FormLabel>
+                  <Popover>
+                    <PopoverTrigger asChild>
+                      <FormControl>
+                        <Button
+                          variant={"outline"}
+                          className={cn(
+                            "w-[240px] pl-3 text-left font-normal",
+                            !field.value && "text-muted-foreground"
+                          )}
+                        >
+                          {field.value ? (
+                            format(field.value, "PPP")
+                          ) : (
+                            <span>Pick a date</span>
+                          )}
+                          <CalendarIcon className="ml-auto h-4 w-4 opacity-50" />
+                        </Button>
+                      </FormControl>
+                    </PopoverTrigger>
+                    <PopoverContent className="w-auto p-0" align="start">
+                      <Calendar
+                        mode="single"
+                        //selected={field.value}
+                        onSelect={field.onChange}
+                        disabled={(date) =>
+                          date > new Date() || date < new Date("1900-01-01")
+                        }
+                        initialFocus
+                      />
+                    </PopoverContent>
+                  </Popover>
                 </FormItem>
               )}
             />
@@ -185,7 +207,7 @@ const ExperienceForm = ({ education, updateForm }: StepProps) => {
             name="acheivements"
             render={({ field }) => (
               <FormItem>
-                <FormLabel>Acheivements</FormLabel>
+                <FormLabel>Responsibilities & Achievements</FormLabel>
                 <FormControl>
                   <Textarea
                     placeholder="Enter here"
