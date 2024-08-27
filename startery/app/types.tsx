@@ -18,23 +18,24 @@ interface educationInfo {
   graduationMonth: string;
   graduationYear: number;
   degree: string;
-  major: string[];
+  major: any;
   acheivements: string;
 }
 
-interface experienceInfo {
+export interface experienceInfo {
   title: string;
   company: string;
   type: string;
-  startdate: Date;
-  enddate: Date;
+  month: string;
+  year: number;
   acheivements: string;
 }
 
 interface personalInterests {
   industryPreference: string;
   rolePreference: string;
-  locationPreference: "In-person" | "Remote" | "Hybrid";
+  locationPreference: string[]; //"in-person" | "remote" | "hybrid";
+  careerGoals: string;
 }
 
 interface miscInfo {

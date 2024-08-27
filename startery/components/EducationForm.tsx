@@ -3,14 +3,15 @@ import FormWrapper from "./FormWrapper";
 import {
   Form,
   FormControl,
+  FormDescription,
   FormField,
   FormItem,
   FormLabel,
+  FormMessage,
 } from "@/components/ui/form";
 import { z } from "zod";
-import { useForm } from "react-hook-form";
+import { useFieldArray, useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { Button } from "./ui/button";
 import { Input } from "./ui/input";
 import {
   Select,
@@ -19,6 +20,9 @@ import {
   SelectTrigger,
   SelectValue,
 } from "./ui/select";
+import { Textarea } from "./ui/textarea";
+import { cn } from "@/lib/utils";
+import { Button } from "./ui/button";
 
 type StepProps = FormItems & {
   updateForm: (fieldToUpdate: Partial<FormItems>) => void;
@@ -30,23 +34,24 @@ const initialValues: FormItems = {
     graduationMonth: "",
     graduationYear: 1900,
     degree: "",
-    major: [],
+    major: [{ value: "" }],
     acheivements: "",
   },
 };
 
 const formSchema = z.object({
-  university: z.string().min(2, {
-    message: "University must be at least 2 characters.",
-  }),
+  university: z.string(),
   graduationMonth: z.string(),
   graduationYear: z.number(),
-  degree: z.string().min(2, {
-    message: "Degree must be at least 2 characters.",
-  }),
-  acheivements: z.string().min(2, {
-    message: "acheivement must be at least 2 characters.",
-  }),
+  degree: z.string(),
+  major: z
+    .array(
+      z.object({
+        value: z.string(),
+      })
+    )
+    .optional(),
+  acheivements: z.string(),
 });
 
 const EducationForm = ({ education, updateForm }: StepProps) => {
@@ -57,20 +62,35 @@ const EducationForm = ({ education, updateForm }: StepProps) => {
       graduationMonth: initialValues.education?.graduationMonth,
       graduationYear: initialValues.education?.graduationYear,
       degree: initialValues.education?.degree,
+      major: initialValues.education?.major,
       acheivements: initialValues.education?.acheivements,
     },
   });
 
   function onSubmit(values: z.infer<typeof formSchema>) {
-    // Do something with the form values.
-    console.log(values);
+    const update: FormItems = {
+      education: {
+        university: values.university,
+        graduationMonth: values.graduationMonth,
+        graduationYear: values.graduationYear,
+        degree: values.degree,
+        major: values.major,
+        acheivements: values.acheivements,
+      },
+    };
+    updateForm(update);
   }
+
+  const { fields, append, remove } = useFieldArray({
+    name: "major",
+    control: form.control,
+  });
 
   return (
     <FormWrapper title="Education">
       <Form {...form}>
         <form
-          onSubmit={form.handleSubmit(onSubmit)}
+          onChange={form.handleSubmit(onSubmit)}
           className="w-2/3 space-y-6 m-5"
         >
           <FormField
@@ -80,7 +100,7 @@ const EducationForm = ({ education, updateForm }: StepProps) => {
               <FormItem>
                 <FormLabel>Univetsity</FormLabel>
                 <FormControl>
-                  <Input placeholder="Ola Nordmann" {...field} />
+                  <Input placeholder="University" {...field} />
                 </FormControl>
               </FormItem>
             )}
@@ -94,7 +114,7 @@ const EducationForm = ({ education, updateForm }: StepProps) => {
                   <FormLabel>Graduation date</FormLabel>
                   <FormControl>
                     <Select>
-                      <SelectTrigger className="w-[100px]" id="month">
+                      <SelectTrigger className="w-[200px]" id="month">
                         <SelectValue placeholder="Month" />
                       </SelectTrigger>
                       <SelectContent>
@@ -121,10 +141,10 @@ const EducationForm = ({ education, updateForm }: StepProps) => {
               name="graduationYear"
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel>-</FormLabel>
+                  <FormLabel className="text-white">-</FormLabel>
                   <FormControl>
                     <Select>
-                      <SelectTrigger className="w-[100px]" id="year">
+                      <SelectTrigger className="w-[200px]" id="year">
                         <SelectValue placeholder="Year " />
                       </SelectTrigger>
                       <SelectContent>
@@ -150,31 +170,67 @@ const EducationForm = ({ education, updateForm }: StepProps) => {
               <FormItem>
                 <FormLabel>Degree</FormLabel>
                 <FormControl>
-                  <Input placeholder="Ola.nordmann@gmail.com" {...field} />
+                  <Input placeholder="Degree" {...field} />
                 </FormControl>
               </FormItem>
             )}
           />
+          <div>
+            {fields.map((field: any, index: number) => (
+              <FormField
+                control={form.control}
+                key={field.id}
+                name={`major.${index}.value`}
+                render={({ field }) => (
+                  <FormItem>
+                    <FormLabel className={cn(index !== 0 && "sr-only")}>
+                      Major
+                    </FormLabel>
+                    <div className="flex gap-4 pb-3">
+                      <FormControl>
+                        <Input {...field} />
+                      </FormControl>
+                      <Button
+                        type="button"
+                        variant="outline"
+                        onClick={() => {
+                          if (index !== 0) remove(index);
+                        }}
+                      >
+                        Delete
+                      </Button>
+                    </div>
+                  </FormItem>
+                )}
+              />
+            ))}
+            <div className="flex gap-4">
+              <Button
+                type="button"
+                variant="outline"
+                size="sm"
+                onClick={() => append({ value: "" })}
+              >
+                Add major
+              </Button>
+            </div>
+          </div>
           <FormField
             control={form.control}
             name="acheivements"
             render={({ field }) => (
               <FormItem>
-                <FormLabel>Acheivements</FormLabel>
+                <FormLabel>Academic acheivements</FormLabel>
                 <FormControl>
-                  <Input placeholder="Acheivements" {...field} />
+                  <Textarea
+                    placeholder="Enter here"
+                    className="resize-none"
+                    {...field}
+                  />
                 </FormControl>
               </FormItem>
             )}
           />
-          <div className="flex justify-between">
-            <Button variant="back" type="submit">
-              Back
-            </Button>
-            <Button variant="next" type="submit">
-              Next
-            </Button>
-          </div>
         </form>
       </Form>
     </FormWrapper>

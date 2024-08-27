@@ -15,9 +15,9 @@ const navPath = [
 
 const SideBar = ({ currentStepIndex, goTo }: NavProps) => {
   return (
-    <div className="absolute top-20 left-0 w-full md:w-[25%] md:relative md:top-0 md:left-0 h-full">
-      <nav className="py-5 h-full md:p-5 w-64 bg-gradient-to-b from-sidebar2 to-sidebar1">
-        <div className=" text-xl text-white mb-5 mt-8">{`Step ${currentStepIndex + 1}`}</div>
+    <div className="absolute left-0 w-full md:w-[25%] md:relative md:top-0 md:left-0 h-full">
+      <nav className="h-screen py-5 md:p-5 w-64 bg-gradient-to-b from-sidebar2 to-sidebar1">
+        <div className="pt-28 pl-4 text-3xl text-white mb-6 font-bold">{`Step ${currentStepIndex + 1}`}</div>
         <ul className="flex justify-center gap-2 md:flex-col">
           {navPath.map((item, index) => (
             <li key={index} className="flex flex-col items-start font-medium">

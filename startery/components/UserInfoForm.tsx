@@ -10,7 +10,6 @@ import {
 import { z } from "zod";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { Button } from "./ui/button";
 import { Input } from "./ui/input";
 
 type StepProps = FormItems & {
@@ -30,9 +29,7 @@ const formSchema = z.object({
   name: z.string().min(2, {
     message: "Username must be at least 2 characters.",
   }),
-  email: z.string({
-    required_error: "Please select an email to display.",
-  }),
+  email: z.string(),
   phone: z.number(),
   location: z.string(),
 });
@@ -49,11 +46,19 @@ const UserInfoForm = ({ personal, updateForm }: StepProps) => {
   });
 
   function onSubmit(values: z.infer<typeof formSchema>) {
-    console.log(values.email);
+    const update: FormItems = {
+      personal: {
+        name: values.name,
+        email: values.email,
+        phone: values.phone,
+        location: values.location,
+      },
+    };
+    updateForm(update);
   }
 
   return (
-    <FormWrapper title="Personal info">
+    <FormWrapper title="Personal information">
       <Form {...form}>
         <form
           onSubmit={form.handleSubmit(onSubmit)}
@@ -107,14 +112,6 @@ const UserInfoForm = ({ personal, updateForm }: StepProps) => {
               </FormItem>
             )}
           />
-          <div className="flex justify-between">
-            <Button variant="back" type="submit">
-              Back
-            </Button>
-            <Button variant="next" type="submit">
-              Next
-            </Button>
-          </div>
         </form>
       </Form>
     </FormWrapper>

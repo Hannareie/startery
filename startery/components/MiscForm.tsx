@@ -58,8 +58,16 @@ const MiscForm = ({ misc, updateForm }: StepProps) => {
   });
 
   function onSubmit(values: z.infer<typeof formSchema>) {
-    // Do something with the form values.
-    console.log(values);
+    const update: FormItems = {
+      misc: {
+        skills: values.skills,
+        tools: values.tools,
+        linkedIn: values.linkedIn,
+        portfolio: values.portfolio,
+        biography: values.biography,
+      },
+    };
+    updateForm(update);
   }
 
   return (
@@ -129,14 +137,6 @@ const MiscForm = ({ misc, updateForm }: StepProps) => {
               </FormItem>
             )}
           />
-          <div className="flex justify-between">
-            <Button variant="back" type="submit">
-              Back
-            </Button>
-            <Button variant="next" type="submit">
-              Next
-            </Button>
-          </div>
         </form>
       </Form>
     </FormWrapper>

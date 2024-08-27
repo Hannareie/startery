@@ -8,10 +8,10 @@ type FormWrapperProps = {
 export const FormWrapper = ({ title, children }: FormWrapperProps) => {
   return (
     <>
-      <div className="text-xl font-semibold md:text-2xl mt-10 mb-10 ml-5">
+      <div className="text-xl font-semibold md:text-2xl mt-10 mb-4 ml-5">
         {title}
       </div>
-      <div>{children}</div>
+      <div className="overflow-y-auto">{children}</div>
     </>
   );
 };

@@ -3,68 +3,40 @@
 import { FormItems } from "./types";
 import { useState } from "react";
 import { useMultiplestepForm } from "@/hooks/useMultiplestepForm";
-import { z } from "zod";
-import { useForm } from "react-hook-form";
-import { zodResolver } from "@hookform/resolvers/zod";
 import UserInfoForm from "@/components/UserInfoForm";
 import EducationForm from "@/components/EducationForm";
 import SideBar from "@/components/SideBar";
 import ExperienceForm from "@/components/ExperienceForm";
 import InterestsForm from "@/components/InterestsForm";
 import MiscForm from "@/components/MiscForm";
-
-const initialValues: FormItems = {
-  personal: {
-    name: "",
-    email: "",
-    phone: 0,
-    location: "",
-  },
-};
+import { Button } from "@/components/ui/button";
+import Link from "next/link";
 
 export default function Home() {
-  const [formData, setFormData] = useState(initialValues);
-  // const [errors, setErrors] = useState<Record<string, string>>({});
-  const {
-    previousStep,
-    nextStep,
-    currentStepIndex,
-    isFirstStep,
-    isLastStep,
-    steps,
-    goTo,
-    showSuccessMsg,
-  } = useMultiplestepForm(4);
-
-  function updateForm(fieldToUpdate: Partial<FormItems>) {
-    setFormData({ ...formData, ...fieldToUpdate });
-  }
-
-  const handleOnSubmit = (e: React.FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
-    nextStep();
-  };
-
   return (
-    <div className="flex h-full">
-      <SideBar currentStepIndex={currentStepIndex} goTo={goTo} />
-
-      <div className="w-full h-full">
-        {currentStepIndex === 0 && (
-          <UserInfoForm key="step1" {...formData} updateForm={updateForm} />
-        )}
-        {currentStepIndex === 1 && (
-          <EducationForm key="step2" {...formData} updateForm={updateForm} />
-        )}
-        {currentStepIndex === 2 && (
-          <ExperienceForm key="step3" {...formData} updateForm={updateForm} />
-        )}
-        {currentStepIndex === 3 && (
-          <InterestsForm key="step4" {...formData} updateForm={updateForm} />
-        )}
-        {currentStepIndex === 4 && (
-          <MiscForm key="step5" {...formData} updateForm={updateForm} />
-        )}
+    <div className="w-full bg-gradient-to-b from-sidebar2 to-sidebar1">
+      <div className="gap-20 h-screen flex flex-col items-center justify-center">
+        <div className="text-3xl text-white font-semi">
+          Select your role to get started.
+        </div>
+        <div className="flex gap-10">
+          <Link href="/student-form">
+            <Button
+              variant="outline"
+              className="w-72 h-22 rounded-3xl text-xl text-sidebar1"
+            >
+              Student
+            </Button>
+          </Link>
+          <Link href="/student-form">
+            <Button
+              variant="outline"
+              className="w-72 h-22 rounded-3xl text-xl text-sidebar1"
+            >
+              Startup
+            </Button>
+          </Link>
+        </div>
       </div>
     </div>
   );
