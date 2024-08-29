@@ -1,0 +1,30 @@
+{
+  "profile": {
+    "name": "Hanna Reiestad",
+    "cohort": "S5",
+    "location": "Trondheim",
+    "mail": "hannahreiestad@gmail.com"
+  },
+  "aboutme": {
+    "education": [
+      {
+        "university": "NTNU",
+        "startdate": "2020",
+        "enddate": "2025",
+        "degree": "Master - Computer Science"
+      }
+    ],
+    "skills": ["UI/UX", "Product management"],
+    "tools": ["Figma", "VScode", "MS office"],
+    "links": ["https://www.linkedin.com/in/hanna-reiestad-467bb6186"]
+  },
+  "ikigai": {
+    "whatILove": "dictum varius duis at consectetur lorem donec massa sapien",
+    "goodAt": "dictum varius duis at consectetur lorem donec massa sapien ",
+    "worldNeeds": "dictum varius duis at consectetur lorem donec massa sapien ",
+    "paidFor": "dictum varius duis at consectetur lorem donec massa sapien "
+  },
+  "bibliograhy": {
+    "about": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Convallis convallis tellus id interdum velit laoreet id. Ullamcorper velit sed ullamcorper morbi tincidunt ornare massa eget egestas. Malesuada fames ac turpis egestas integer eget aliquet nibh praesent. Quam id leo in vitae turpis massa. Pretium vulputate sapien nec sagittis aliquam malesuada. Tincidunt ornare massa eget egestas purus viverra accumsan. Massa id neque aliquam vestibulum morbi blandit cursus risus. Elit scelerisque mauris pellentesque pulvinar pellentesque habitant morbi tristique."
+  }
+}

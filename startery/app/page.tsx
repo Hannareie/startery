@@ -1,14 +1,5 @@
 "use client";
 
-import { FormItems } from "./types";
-import { useState } from "react";
-import { useMultiplestepForm } from "@/hooks/useMultiplestepForm";
-import UserInfoForm from "@/components/UserInfoForm";
-import EducationForm from "@/components/EducationForm";
-import SideBar from "@/components/SideBar";
-import ExperienceForm from "@/components/ExperienceForm";
-import InterestsForm from "@/components/InterestsForm";
-import MiscForm from "@/components/MiscForm";
 import { Button } from "@/components/ui/button";
 import Link from "next/link";
 

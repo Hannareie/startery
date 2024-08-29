@@ -10,7 +10,7 @@ import {
 import { z } from "zod";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { Input } from "./ui/input";
+import { Input } from "../ui/input";
 
 type StepProps = FormItems & {
   updateForm: (fieldToUpdate: Partial<FormItems>) => void;

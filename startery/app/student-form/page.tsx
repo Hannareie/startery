@@ -3,13 +3,14 @@
 import { FormItems } from "../types";
 import { useState } from "react";
 import { useMultiplestepForm } from "@/hooks/useMultiplestepForm";
-import UserInfoForm from "@/components/UserInfoForm";
-import EducationForm from "@/components/EducationForm";
-import SideBar from "@/components/SideBar";
-import ExperienceForm from "@/components/ExperienceForm";
-import InterestsForm from "@/components/InterestsForm";
-import MiscForm from "@/components/MiscForm";
+import UserInfoForm from "@/components/forms/UserInfoForm";
+import EducationForm from "@/components/forms/EducationForm";
+import SideBar from "@/components/forms/SideBar";
+import ExperienceForm from "@/components/forms/ExperienceForm";
+import InterestsForm from "@/components/forms/InterestsForm";
+import MiscForm from "@/components/forms/MiscForm";
 import { Button } from "@/components/ui/button";
+import Link from "next/link";
 
 const initialValues: FormItems = {
   personal: {
@@ -23,6 +24,7 @@ const initialValues: FormItems = {
 export default function Home() {
   const [formData, setFormData] = useState(initialValues);
   // const [errors, setErrors] = useState<Record<string, string>>({});
+
   const {
     previousStep,
     nextStep,
@@ -68,14 +70,44 @@ export default function Home() {
         {currentStepIndex === 4 && (
           <MiscForm key="step5" {...formData} updateForm={updateForm} />
         )}
-        <div className="flex gap-10 pt-4 m-5">
-          <Button variant="back" type="submit" onClick={() => previousStep()}>
-            Back
-          </Button>
-          <Button variant="next" type="submit" onClick={() => nextStep()}>
-            Next
-          </Button>
-        </div>
+
+        {isFirstStep ? (
+          <div className="flex gap-6 pt-4 m-5">
+            <Link href="/">
+              <Button className="w-[130px]" variant="back" type="submit">
+                Return to home
+              </Button>
+            </Link>
+            <Button
+              className="w-[130px]"
+              variant="next"
+              type="submit"
+              onClick={() => nextStep()}
+            >
+              {isLastStep ? "Confirm" : "Next Step"}
+            </Button>
+          </div>
+        ) : (
+          <div className="flex gap-6 pt-4 m-5">
+            <Button
+              className="w-[130px]"
+              variant="back"
+              type="submit"
+              onClick={() => previousStep()}
+            >
+              Previous Step
+            </Button>
+
+            <Button
+              className="w-[130px]"
+              variant="next"
+              type="submit"
+              onClick={() => nextStep()}
+            >
+              {isLastStep ? "Confirm" : "Next Step"}
+            </Button>
+          </div>
+        )}
       </div>
     </div>
   );
