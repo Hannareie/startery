@@ -1,0 +1,114 @@
+{
+  "tasks": [
+    {
+      "id": 1,
+      "task_name": "Automated web-based solution",
+      "client_name": "Smith & Co.",
+      "project_type": "Development",
+      "skills": ["Python", "JavaScript", "HTML"],
+      "project_duration": "6 months",
+      "due_date": "2025-01-15",
+      "category": "Web Development",
+      "description": "Develop a fully automated solution for handling web-based tasks."
+    },
+    {
+      "id": 2,
+      "task_name": "SEO Optimization for E-commerce",
+      "client_name": "TechMarket Ltd.",
+      "project_type": "Marketing",
+      "skills": ["SEO", "Data Analysis"],
+      "project_duration": "3 months",
+      "due_date": "2024-12-05",
+      "category": "SEO Optimization",
+      "description": "Improve search engine rankings for a large e-commerce site."
+    },
+    {
+      "id": 3,
+      "task_name": "Mobile App Redesign",
+      "client_name": "Appify Inc.",
+      "project_type": "Design",
+      "skills": ["UI/UX Design", "CSS", "JavaScript"],
+      "project_duration": "5 months",
+      "due_date": "2025-03-20",
+      "category": "Mobile App",
+      "description": "Redesign the mobile app to enhance user experience and increase engagement."
+    },
+    {
+      "id": 4,
+      "task_name": "AI-Driven Data Analysis",
+      "client_name": "DataVision LLC",
+      "project_type": "Research",
+      "skills": ["Machine Learning", "Python", "Data Analysis"],
+      "project_duration": "8 months",
+      "due_date": "2025-05-30",
+      "category": "Data Science",
+      "description": "Implement AI algorithms to analyze large datasets for actionable insights."
+    },
+    {
+      "id": 5,
+      "task_name": "Branding for New Product Launch",
+      "client_name": "FreshStart Corp.",
+      "project_type": "Consulting",
+      "skills": ["Project Management", "SEO"],
+      "project_duration": "2 months",
+      "due_date": "2024-10-15",
+      "category": "Branding",
+      "description": "Develop a branding strategy for an upcoming product launch."
+    },
+    {
+      "id": 6,
+      "task_name": "Custom E-commerce Website Development",
+      "client_name": "ShopWorld",
+      "project_type": "Development",
+      "skills": ["HTML", "CSS", "JavaScript"],
+      "project_duration": "7 months",
+      "due_date": "2025-04-10",
+      "category": "Web Development",
+      "description": "Create a custom e-commerce platform for a global client."
+    },
+    {
+      "id": 7,
+      "task_name": "UX Research for Educational Platform",
+      "client_name": "EduTech Solutions",
+      "project_type": "Research",
+      "skills": ["UI/UX Research", "Data Analysis"],
+      "project_duration": "4 months",
+      "due_date": "2025-02-05",
+      "category": "UI/UX Research",
+      "description": "Conduct user research to optimize the learning experience on an educational platform."
+    },
+    {
+      "id": 8,
+      "task_name": "Full-Stack App Development",
+      "client_name": "Innovatech",
+      "project_type": "Development",
+      "skills": ["JavaScript", "Python", "CSS"],
+      "project_duration": "9 months",
+      "due_date": "2025-06-22",
+      "category": "Mobile App",
+      "description": "Develop a full-stack application for a fintech startup."
+    },
+    {
+      "id": 9,
+      "task_name": "Social Media Strategy Consulting",
+      "client_name": "BuzzNet",
+      "project_type": "Consulting",
+      "skills": ["SEO", "Project Management"],
+      "project_duration": "1 month",
+      "due_date": "2024-11-01",
+      "category": "Marketing",
+      "description": "Provide consulting on social media strategy for increased engagement and reach."
+    },
+    {
+      "id": 10,
+      "task_name": "AI-Powered SEO Optimization",
+      "client_name": "TechFusion",
+      "project_type": "Marketing",
+      "skills": ["Machine Learning", "SEO", "Data Analysis"],
+      "project_duration": "6 months",
+      "due_date": "2025-01-31",
+      "category": "SEO Optimization",
+      "description": "Use AI tools to enhance SEO strategies for a large tech company."
+    }
+  ]
+}

@@ -49,7 +49,7 @@ export default function Home() {
     <div className="flex h-full">
       <SideBar currentStepIndex={currentStepIndex} goTo={goTo} />
 
-      <div className="flex flex-col justify-center h-screen w-full">
+      <div className="flex flex-col pt-24 h-screen w-full">
         {currentStepIndex === 0 && (
           <UserInfoForm key="step1" {...formData} updateForm={updateForm} />
         )}

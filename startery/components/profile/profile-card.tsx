@@ -15,7 +15,7 @@ import data from "@/lib/data.json";
 export function ProfileCard() {
   const { name, cohort, location, mail } = data.profile;
   return (
-    <Card className="w-[400px] h-[500px]">
+    <Card className="w-full h-[500px]">
       <CardContent className="flex flex-col items-center justify-center h-[500px]">
         <div className="pb-8">
           <Avatar className="w-[150px] h-[150px]">

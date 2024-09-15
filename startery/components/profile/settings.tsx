@@ -1,3 +1,4 @@
+"use client";
 import { Label } from "@radix-ui/react-label";
 import {
   Card,
@@ -15,6 +16,9 @@ import {
   AccordionTrigger,
 } from "../ui/accordion";
 import data from "@/lib/data.json";
+import { PencilIcon } from "@heroicons/react/24/outline";
+import { useState } from "react";
+import { useSetting } from "@/hooks/useSetting";
 
 export function SettingsCard() {
   const { name, cohort, location, mail } = data.profile;
@@ -22,13 +26,30 @@ export function SettingsCard() {
   const { whatILove, goodAt, worldNeeds, paidFor } = data.ikigai;
   const { about } = data.bibliograhy;
 
+  const [selected, setSetting] = useSetting();
+
   return (
-    <Card className="w-full">
+    <Card className="w-full h-full">
       <CardContent className="grid gap-4"></CardContent>
       <CardTitle className="mt-2 pl-8 pb-6">Settings</CardTitle>
       <Accordion type="single" collapsible className="w-full pl-8 pr-8 pb-6">
         <AccordionItem value="item-1">
-          <AccordionTrigger>Personal information</AccordionTrigger>
+          <div className="flex items-center">
+            <AccordionTrigger>
+              <div className="pr-4">Personal information</div>
+            </AccordionTrigger>
+            <Button
+              className="ml-auto mt-2"
+              variant="nooutline"
+              onClick={() =>
+                setSetting({
+                  selected: "personalinformation",
+                })
+              }
+            >
+              <PencilIcon className="w-[20px]" />
+            </Button>
+          </div>
           <AccordionContent>
             <div className="text-gray-400">Name</div>
             <div className="pb-2">{name}</div>
@@ -41,7 +62,22 @@ export function SettingsCard() {
           </AccordionContent>
         </AccordionItem>
         <AccordionItem value="item-2">
-          <AccordionTrigger>About me</AccordionTrigger>
+          <div className="flex items-center">
+            <AccordionTrigger>
+              <div className="pr-4">About me</div>
+            </AccordionTrigger>
+            <Button
+              className="ml-auto mt-2"
+              variant="nooutline"
+              onClick={() =>
+                setSetting({
+                  selected: "aboutme",
+                })
+              }
+            >
+              <PencilIcon className="w-[20px]" />
+            </Button>
+          </div>
           <AccordionContent>
             <div className="text-gray-400">Education</div>
             <div className="pb-2">
@@ -63,7 +99,22 @@ export function SettingsCard() {
           </AccordionContent>
         </AccordionItem>
         <AccordionItem value="item-3">
-          <AccordionTrigger>Ikigai</AccordionTrigger>
+          <div className="flex items-center">
+            <AccordionTrigger>
+              <div className="pr-4">Ikigai</div>
+            </AccordionTrigger>
+            <Button
+              className="ml-auto mt-2"
+              variant="nooutline"
+              onClick={() =>
+                setSetting({
+                  selected: "ikigai",
+                })
+              }
+            >
+              <PencilIcon className="w-[20px]" />
+            </Button>
+          </div>
           <AccordionContent>
             <div className="text-gray-400">What I Love</div>
             <div className="pb-2">{whatILove}</div>
@@ -76,7 +127,22 @@ export function SettingsCard() {
           </AccordionContent>
         </AccordionItem>
         <AccordionItem value="item-4">
-          <AccordionTrigger>Biography</AccordionTrigger>
+          <div className="flex items-center">
+            <AccordionTrigger>
+              <div className="pr-4">Biography</div>
+            </AccordionTrigger>
+            <Button
+              className="ml-auto mt-2"
+              variant="nooutline"
+              onClick={() =>
+                setSetting({
+                  selected: "biography",
+                })
+              }
+            >
+              <PencilIcon className="w-[20px]" />
+            </Button>
+          </div>
           <AccordionContent>
             <div className="text-gray-400">About</div>
             <div className="pb-2">{about}</div>

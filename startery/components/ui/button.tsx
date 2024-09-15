@@ -20,6 +20,7 @@ const buttonVariants = cva(
         link: "text-primary underline-offset-4 hover:underline",
         next: "bg-gradient-to-b from-sidebar2 to-sidebar1 w-24 h-10 rounded-xl text-white",
         back: "bg-white border border-slate-400 text-sidebar2 w-24 h-10 rounded-xl",
+        nooutline: "bg-white m-0",
       },
       size: {
         default: "h-10 px-4 py-2",
