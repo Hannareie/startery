@@ -2,7 +2,7 @@
 
 import { Card, CardContent } from "../ui/card";
 import { useSetting } from "@/hooks/useSetting";
-import { Form, FormControl, FormField, FormItem, FormLabel } from "../ui/form";
+import { Form, FormField, FormItem, FormLabel } from "../ui/form";
 import { Input } from "../ui/input";
 import { useForm } from "react-hook-form";
 import { z } from "zod";

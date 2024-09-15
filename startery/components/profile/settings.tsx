@@ -1,13 +1,6 @@
 "use client";
-import { Label } from "@radix-ui/react-label";
-import {
-  Card,
-  CardContent,
-  CardDescription,
-  CardFooter,
-  CardHeader,
-  CardTitle,
-} from "../ui/card";
+
+import { Card, CardContent, CardTitle } from "../ui/card";
 import { Button } from "../ui/button";
 import {
   Accordion,

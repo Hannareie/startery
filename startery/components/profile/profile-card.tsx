@@ -1,14 +1,6 @@
 "use client";
 
-import { Label } from "@radix-ui/react-label";
-import {
-  Card,
-  CardContent,
-  CardDescription,
-  CardFooter,
-  CardHeader,
-  CardTitle,
-} from "../ui/card";
+import { Card, CardContent } from "../ui/card";
 import { Avatar, AvatarFallback, AvatarImage } from "../ui/avatar";
 import data from "@/lib/data.json";
 
