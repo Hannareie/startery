@@ -17,7 +17,6 @@ import {
 } from "../ui/accordion";
 import data from "@/lib/data.json";
 import { PencilIcon } from "@heroicons/react/24/outline";
-import { useState } from "react";
 import { useSetting } from "@/hooks/useSetting";
 
 export function SettingsCard() {

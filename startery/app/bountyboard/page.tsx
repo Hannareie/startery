@@ -1,8 +1,8 @@
 "use client";
 
+import React from "react";
 import { useState, useEffect } from "react";
-import { format } from "date-fns";
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { Card, CardContent } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Checkbox } from "@/components/ui/checkbox";
@@ -14,16 +14,10 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 import { Badge } from "@/components/ui/badge";
-import { Calendar } from "@/components/ui/calendar";
-import {
-  Popover,
-  PopoverContent,
-  PopoverTrigger,
-} from "@/components/ui/popover";
 import { Button } from "@/components/ui/button";
-import { CalendarIcon } from "lucide-react";
 import { MainNav } from "@/components/nav";
 import { Separator } from "@/components/ui/separator";
+import { Dialog, DialogContent, DialogTrigger } from "@/components/ui/dialog";
 
 interface Task {
   id: number;
@@ -129,7 +123,7 @@ export default function Bountyboard() {
 
       <div className="flex overflow-y-scroll p-4">
         {/* Filters - 1/4 width */}
-        <div className="w-1/4 p-4 bg-white shadow-md">
+        <div className="w-1/4 p-4 bg-white">
           <div className="text-4xl pb-6">Bountyboard</div>
           <div className="space-y-4 border-2 rounded-xl p-6 pb-8">
             <div className="flex">
@@ -213,42 +207,12 @@ export default function Bountyboard() {
                 ))}
               </div>
             </div>
-            {/** 
-            <div>
-              <Label>Due Date (Before)</Label>
-              <div className="mt-2">
-                <Popover>
-                  <PopoverTrigger asChild>
-                    <Button
-                      variant="outline"
-                      className="w-full justify-start text-left font-normal"
-                    >
-                      <CalendarIcon className="mr-2 h-4 w-4" />
-                      {selectedDueDate ? (
-                        format(selectedDueDate, "PPP")
-                      ) : (
-                        <span>Pick a date</span>
-                      )}
-                    </Button>
-                  </PopoverTrigger>
-                  <PopoverContent className="w-auto p-0">
-                    <Calendar
-                      mode="single"
-                      selected={selectedDueDate}
-                      onSelect={setSelectedDueDate}
-                      initialFocus
-                    />
-                  </PopoverContent>
-                </Popover>
-              </div>
-            </div>
-            */}
           </div>
         </div>
 
         {/* Tasks - 3/4 width */}
         <div className="w-3/4 p-4 flex flex-col h-full justify-end">
-          <div className="m-4 flex gap-4">
+          <div className="m-2 flex gap-4">
             <div className="w-3/4">
               <Label htmlFor="search">Search</Label>
               <Input
@@ -273,33 +237,71 @@ export default function Bountyboard() {
               </Select>
             </div>
           </div>
-          <div className="m-4">
+          <div className="m-2 mb-4">
             <div className="text-2xl font-semibold">Active</div>
             <div className="pt-1">Showing {filteredTasks.length} tasks</div>
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 gap-4 m-4">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 gap-4 ml-2 mr-2">
             {currentTasks.map((task) => (
-              <Card key={task.id} className="flex flex-col">
-                <CardContent className="flex-grow">
-                  <p className="text-xl pb-2 pt-4">{task.task_name}</p>
-                  <p>Posted by: {task.client_name}</p>
-                  <div className="pb-2 pt-2 mt-auto">
-                    {task.skills.map((skill) => (
-                      <Badge key={skill} variant="border" className="mr-1 mb-1">
-                        {skill}
-                      </Badge>
-                    ))}
+              <Dialog key={task.id}>
+                <DialogTrigger asChild>
+                  <Card className="flex flex-col cursor-pointer hover:shadow-lg transition-shadow duration-200">
+                    <CardContent className="flex-grow">
+                      <p className="text-xl pb-4 pt-4">{task.task_name}</p>
+                      <p>Posted by: {task.client_name}</p>
+                      <div className="pb-2 pt-2 mt-auto">
+                        {task.skills.map((skill) => (
+                          <Badge
+                            key={skill}
+                            variant="border"
+                            className="mr-1 mb-1"
+                          >
+                            {skill}
+                          </Badge>
+                        ))}
+                      </div>
+                      <p>Due Date: {task.due_date}</p>
+                      <p className="mt-2">Description: {task.description}</p>
+                    </CardContent>
+                  </Card>
+                </DialogTrigger>
+                <DialogContent className="sm:max-w-[850px]">
+                  <div className="m-6 ml-8 mr-8 grid gap-2">
+                    <div>
+                      <p className="text-2xl">{task.task_name}</p>
+                      <p className="text-gray-500 pt-4">
+                        Posted by: {task.client_name}
+                      </p>
+                      <p className="text-gray-500">Due Date: {task.due_date}</p>
+                    </div>
+                    <div className="flex flex-row gap-4 pt-2 pb-2">
+                      <Button variant="next" className="w-32 h-9">
+                        Apply Now
+                      </Button>
+                      <Button variant="back" className="w-32 h-9">
+                        Bookmark
+                      </Button>
+                    </div>
+                    <div>
+                      <p className="font-semibold pb-2">Overview</p>
+                      <p>{task.description}</p>
+                      <p className="font-semibold pt-2">Responsibilities</p>
+                      <ul className="list-disc pl-4 pt-2">
+                        {task.skills.map((skill) => (
+                          <li key={skill}>{skill}</li>
+                        ))}
+                      </ul>
+                      <p className="font-semibold pt-2">Skills</p>
+                      <ul className="list-disc pl-4 pt-2">
+                        {task.skills.map((skill) => (
+                          <li key={skill}>{skill}</li>
+                        ))}
+                      </ul>
+                    </div>
                   </div>
-                  <p>Due Date: {task.due_date}</p>
-                  <p className="mt-2">Description: {task.description}</p>
-                  {/**<p>Project Type: {task.project_type}</p>
-                  <p>Skills: {task.skills.join(", ")}</p>
-                  <p>Duration: {task.project_duration}</p>
-                  <p>Due Date: {task.due_date}</p>
-                  <p>Category: {task.category}</p>*/}
-                </CardContent>
-              </Card>
+                </DialogContent>
+              </Dialog>
             ))}
           </div>
           {/* Pagination */}
