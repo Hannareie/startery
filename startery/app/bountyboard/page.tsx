@@ -124,10 +124,10 @@ export default function Bountyboard() {
   }
 
   return (
-    <div>
+    <>
       <MainNav />
 
-      <div className="flex h-screen m-4">
+      <div className="flex overflow-y-scroll p-4">
         {/* Filters - 1/4 width */}
         <div className="w-1/4 p-4 bg-white shadow-md">
           <div className="text-4xl pb-6">Bountyboard</div>
@@ -151,24 +151,22 @@ export default function Bountyboard() {
             <div>
               <Label>Project Type</Label>
               <div className="mt-2">
-                <>
-                  {projectTypes.map((type) => (
-                    <div key={type} className="flex items-center space-x-2">
-                      <Checkbox
-                        id={type}
-                        checked={selectedProjectType.includes(type)}
-                        onCheckedChange={(checked) => {
-                          setSelectedProjectType((prev) =>
-                            checked
-                              ? [...prev, type]
-                              : prev.filter((c) => c !== type)
-                          );
-                        }}
-                      />
-                      <label htmlFor={type}>{type}</label>
-                    </div>
-                  ))}
-                </>
+                {projectTypes.map((type) => (
+                  <div key={type} className="flex items-center space-x-2">
+                    <Checkbox
+                      id={type}
+                      checked={selectedProjectType.includes(type)}
+                      onCheckedChange={(checked) => {
+                        setSelectedProjectType((prev) =>
+                          checked
+                            ? [...prev, type]
+                            : prev.filter((c) => c !== type)
+                        );
+                      }}
+                    />
+                    <label htmlFor={type}>{type}</label>
+                  </div>
+                ))}
               </div>
             </div>
             <Separator />
@@ -215,7 +213,7 @@ export default function Bountyboard() {
                 ))}
               </div>
             </div>
-            <Separator />
+            {/** 
             <div>
               <Label>Due Date (Before)</Label>
               <div className="mt-2">
@@ -244,11 +242,12 @@ export default function Bountyboard() {
                 </Popover>
               </div>
             </div>
+            */}
           </div>
         </div>
 
         {/* Tasks - 3/4 width */}
-        <div className="w-3/4 p-4">
+        <div className="w-3/4 p-4 flex flex-col h-full justify-end">
           <div className="m-4 flex gap-4">
             <div className="w-3/4">
               <Label htmlFor="search">Search</Label>
@@ -287,11 +286,7 @@ export default function Bountyboard() {
                   <p>Posted by: {task.client_name}</p>
                   <div className="pb-2 pt-2 mt-auto">
                     {task.skills.map((skill) => (
-                      <Badge
-                        key={skill}
-                        variant="default"
-                        className="mr-1 mb-1"
-                      >
+                      <Badge key={skill} variant="border" className="mr-1 mb-1">
                         {skill}
                       </Badge>
                     ))}
@@ -308,14 +303,14 @@ export default function Bountyboard() {
             ))}
           </div>
           {/* Pagination */}
-          <div className="mt-4 flex justify-center">
+          <div className="mt-4 flex h-full justify-center">
             {Array.from(
               { length: Math.ceil(filteredTasks.length / tasksPerPage) },
               (_, i) => (
                 <Button
                   key={i}
                   onClick={() => paginate(i + 1)}
-                  variant={currentPage === i + 1 ? "default" : "outline"}
+                  variant={currentPage === i + 1 ? "back" : "next"}
                   className="mx-1"
                 >
                   {i + 1}
@@ -325,6 +320,6 @@ export default function Bountyboard() {
           </div>
         </div>
       </div>
-    </div>
+    </>
   );
 }
